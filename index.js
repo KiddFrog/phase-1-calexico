@@ -3,6 +3,8 @@ const dishImg = document.querySelector("#dish-image");
 const dishName = document.querySelector("#dish-name");
 const dishDesc = document.querySelector("#dish-description");
 const dishPrice = document.querySelector("#dish-price");
+const cartForm = document.querySelector("#cart-form");
+
 
 fetch("http://localhost:3000/menu")
 .then(response => response.json())
@@ -29,5 +31,14 @@ fetch("http://localhost:3000/menu")
                             dishDesc.textContent = menuItem.description;
                             dishPrice.textContent = menuItem.price;
                     } 
-                    
+                    cartForm.addEventListener('submit', event =>{
+                        event.preventDefault()
+                     // console.log("submit!")
+                        const cartNumSpan = document.querySelector("#number-in-cart");
+                        const currNum = cartNumSpan.textContent;
+                        const numToAdd = event.target[0].value
+                        // Parse the string value to make it addable
+                        const newTotal = parseInt(currNum) + parseInt(numToAdd);
+                        cartNumSpan.textContent = newTotal
+                    })
 })
